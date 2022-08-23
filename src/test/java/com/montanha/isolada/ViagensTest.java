@@ -1,5 +1,7 @@
 package com.montanha.isolada;
 
+import com.montanha.factory.UsuarioDataFactory;
+import com.montanha.factory.ViagemDataFactory;
 import com.montanha.pojo.Usuario;
 import com.montanha.pojo.Viagem;
 import io.restassured.http.ContentType;
@@ -19,9 +21,7 @@ public class ViagensTest {
         port = 8089;
         basePath = "/api";
 
-        Usuario usuarioAdministrador = new Usuario();
-        usuarioAdministrador.setEmail("admin@email.com");
-        usuarioAdministrador.setSenha("654321");
+        Usuario usuarioAdministrador = UsuarioDataFactory.criarUsuarioAdministrador();
 
         String token = given()
             .contentType(ContentType.JSON)
@@ -34,12 +34,7 @@ public class ViagensTest {
             .extract()
                 .path("data.token");
 
-        Viagem viagemValida = new Viagem();
-        viagemValida.setAcompanhante("Luiz");
-        viagemValida.setDataPartida("2022-07-27");
-        viagemValida.setDataRetorno("2022-08-01");
-        viagemValida.setLocalDeDestino("Osasco");
-        viagemValida.setRegiao("Sul");
+        Viagem viagemValida = ViagemDataFactory.criarViagemValida();
 
         given()
             .contentType(ContentType.JSON)
