@@ -1,5 +1,7 @@
 package com.montanha.isolada;
 
+import com.montanha.pojo.Usuario;
+import com.montanha.pojo.Viagem;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 
@@ -17,12 +19,13 @@ public class ViagensTest {
         port = 8089;
         basePath = "/api";
 
+        Usuario usuarioAdministrador = new Usuario();
+        usuarioAdministrador.setEmail("admin@email.com");
+        usuarioAdministrador.setSenha("654321");
+
         String token = given()
             .contentType(ContentType.JSON)
-            .body("{\n" +
-                        "  \"email\": \"admin@email.com\",\n" +
-                        "  \"senha\": \"654321\"\n" +
-                        "}")
+            .body(usuarioAdministrador)
         .when()
             .post("v1/auth")
         .then()
@@ -31,15 +34,16 @@ public class ViagensTest {
             .extract()
                 .path("data.token");
 
+        Viagem viagemValida = new Viagem();
+        viagemValida.setAcompanhante("Luiz");
+        viagemValida.setDataPartida("2022-07-27");
+        viagemValida.setDataRetorno("2022-08-01");
+        viagemValida.setLocalDeDestino("Osasco");
+        viagemValida.setRegiao("Sul");
+
         given()
             .contentType(ContentType.JSON)
-            .body("{\n" +
-                    "  \"acompanhante\": \"Luiz\",\n" +
-                    "  \"dataPartida\": \"2022-07-27\",\n" +
-                    "  \"dataRetorno\": \"2022-08-01\",\n" +
-                    "  \"localDeDestino\": \"Osasco\",\n" +
-                    "  \"regiao\": \"Sul\"\n" +
-                    "}")
+            .body(viagemValida)
             .header("Authorization", token)
         .when()
             .post("/v1/viagens")
