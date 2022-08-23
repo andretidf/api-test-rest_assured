@@ -17,7 +17,7 @@ public class ViagensTest {
         port = 8089;
         basePath = "/api";
 
-        given()
+        String token = given()
             .contentType(ContentType.JSON)
             .body("{\n" +
                         "  \"email\": \"admin@email.com\",\n" +
@@ -27,8 +27,27 @@ public class ViagensTest {
             .post("v1/auth")
         .then()
             .log()
-                .all();
+                .all()//.log().all() -> É opcional para depug - p/verificar o retorno.
+            .extract()
+                .path("data.token");
 
+        given()
+            .contentType(ContentType.JSON)
+            .body("{\n" +
+                    "  \"acompanhante\": \"Luiz\",\n" +
+                    "  \"dataPartida\": \"2022-07-27\",\n" +
+                    "  \"dataRetorno\": \"2022-08-01\",\n" +
+                    "  \"localDeDestino\": \"Osasco\",\n" +
+                    "  \"regiao\": \"Sul\"\n" +
+                    "}")
+            .header("Authorization", token)
+        .when()
+            .post("/v1/viagens")
+        .then()
+            .assertThat()
+                .statusCode(201)
+                .body("data.localDeDestino", equalTo("Osasco"))
+                .body("data.acompanhante", equalToIgnoringCase("Luiz"));
 
     }
 
