@@ -56,6 +56,21 @@ public class ViagensTest {
 
     }
 
+    @Test
+    public void testViagensNaoPodemSerCadastradasSemLocalDeDestino(){
+        Viagem viagemSemLocalDeDestino = ViagemDataFactory.criarViagemSemLocalDeDestino();
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(viagemSemLocalDeDestino)
+            .header("Authorization", token)
+        .when()
+            .post("/v1/viagens")
+        .then()
+            .assertThat()
+            .statusCode(400);
+    }
+
 
 
 }
