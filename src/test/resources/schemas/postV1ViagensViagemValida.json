@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "data",
+    "errors"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "default": {},
+      "title": "The data Schema",
+      "required": [
+        "id",
+        "localDeDestino",
+        "dataPartida",
+        "dataRetorno",
+        "acompanhante",
+        "regiao"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "default": 0,
+          "title": "The id Schema",
+          "examples": [
+            3
+          ]
+        },
+        "localDeDestino": {
+          "type": "string",
+          "default": "",
+          "title": "The localDeDestino Schema",
+          "examples": [
+            "Osasco"
+          ]
+        },
+        "dataPartida": {
+          "type": "string",
+          "default": "",
+          "title": "The dataPartida Schema",
+          "examples": [
+            "2020-07-27"
+          ]
+        },
+        "dataRetorno": {
+          "type": "string",
+          "default": "",
+          "title": "The dataRetorno Schema",
+          "examples": [
+            "2020-07-27"
+          ]
+        },
+        "acompanhante": {
+          "type": "string",
+          "default": "",
+          "title": "The acompanhante Schema",
+          "examples": [
+            "Alex"
+          ]
+        },
+        "regiao": {
+          "type": "string",
+          "default": "",
+          "title": "The regiao Schema",
+          "examples": [
+            "Sul"
+          ]
+        }
+      },
+      "examples": [{
+        "id": 3,
+        "localDeDestino": "Osasco",
+        "dataPartida": "2020-07-27",
+        "dataRetorno": "2020-07-27",
+        "acompanhante": "Alex",
+        "regiao": "Sul"
+      }]
+    },
+    "errors": {
+      "type": "array",
+      "default": [],
+      "title": "The errors Schema",
+      "items": {},
+      "examples": [
+        []
+      ]
+    }
+  },
+  "examples": [{
+    "data": {
+      "id": 3,
+      "localDeDestino": "Osasco",
+      "dataPartida": "2020-07-27",
+      "dataRetorno": "2020-07-27",
+      "acompanhante": "Alex",
+      "regiao": "Sul"
+    },
+    "errors": []
+  }]
+}
