@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.*;
 public class ViagensTest {
 
     private String token;
+    private String tokenUsuario;
 
     @Before
     public void setUp() throws Exception {
@@ -38,6 +39,17 @@ public class ViagensTest {
             .log()
                 .all()//.log().all() -> É opcional para depug - p/verificar o retorno.
             .extract()
+                .path("data.token");
+
+        Usuario usuarioComum = UsuarioDataFactory.criarUsuarioComum();
+
+        this.tokenUsuario = given()
+                .contentType(ContentType.JSON)
+                .body(usuarioComum)
+            .when()
+                .post("/v1/auth")
+            .then()
+                .extract()
                 .path("data.token");
     }
 
@@ -73,6 +85,18 @@ public class ViagensTest {
         .then()
             .assertThat()
             .statusCode(400);
+    }
+
+    @Test
+    public void testRetornaUmaViagemPossuiStatusCode200EMostraLocalDeDestino(){
+        given()
+            .header("Authorization", tokenUsuario)
+        .when()
+            .get("v1/viagens/1")
+        .then()
+            .assertThat()
+                .statusCode(200)
+                .body("data.localDeDestino", equalTo("Osasco"));
     }
 
 
