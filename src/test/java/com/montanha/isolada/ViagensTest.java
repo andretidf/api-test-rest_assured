@@ -99,6 +99,18 @@ public class ViagensTest {
                 .body("data.localDeDestino", equalTo("Osasco"));
     }
 
+    @Test
+    public void testViagemProcessaCorretamenteORetornoDaAPIDoTempo(){
+        given()
+            .header("Authorization", tokenUsuario)
+        .when()
+            .get("v1/viagens/1")
+        .then()
+            .assertThat()
+                .statusCode(200)
+                .body("data.temperatura", equalTo(35.5F));
+    }
+
 
 
 }

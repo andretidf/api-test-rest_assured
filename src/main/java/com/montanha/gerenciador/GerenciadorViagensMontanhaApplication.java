@@ -53,7 +53,7 @@ public class GerenciadorViagensMontanhaApplication {
 			viagemASerRetornada.setDataPartida(new Date());
 			viagemASerRetornada.setDataRetorno(new Date());
 			viagemASerRetornada.setAcompanhante("Bebel");
-			viagemASerRetornada.setRegiao("Sudeste");
+			viagemASerRetornada.setRegiao("Sudoeste");
 			this.viagemRepository.save(viagemASerRetornada);
 			
 		};
